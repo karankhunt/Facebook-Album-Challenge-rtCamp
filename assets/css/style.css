@@ -32,7 +32,153 @@ a:active,
 a:hover {
   outline: 0;
 }
+.loginbody{
+	background-image: url(https://rtcampkaran.myfoodstore.in/assets/images/cameraback.jpg);
+	background-position: center;
+	background-size: cover;
+}
+.login-container{
+	min-height: 100vh;
+	width: 100%;
+	display: -webkit-box;
+   display: -ms-flexbox;
+   display: flex;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+}
+.login-box{
+	-ms-flex-item-align: center;
+       -ms-grid-row-align: center;
+       align-self: center;
+	width: 700px;
+	background-color: #fff;
+	border: 1px solid #eee;
+	box-shadow: 0 0 60px 1px rgba(0,0,0,0.2);
+	padding: 1rem;
+	border-radius: 3px;
+	display: -webkit-box;
+   display: -ms-flexbox;
+   display: flex;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+	flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+}
+.login-box .info{
+	width: 60%;
+	padding-right: 20px;
+}
+.login-box .info p{
+	font-size: 16px;
+	line-height: 26px;
+	color: #444;
+	text-align: center;
+}
+.login-box .info ul{
+	padding: 15px 10px;
+}
+.login-box .info ul li{
+	margin-bottom: 2%;
+	list-style: none;
+	font-size: 14px;
+}.login-box .info ul li i{
+	color: green;
+	font-size: 7px;
+	vertical-align: middle;
+	margin-right: 10px;
+}
+.login-box .button{
+	width: 40%;
+	-ms-flex-item-align: center;
+    -ms-grid-row-align: center;
+    align-self: center;
+}
+.login-box .button a{
+	width: 100%;
+	background-color: orangered;
+	padding: 10px;
+	display: block;
+	color: #fff;
+	margin-bottom: 15px;
+	text-align: center;
+	text-decoration: none;
+	border-radius: 2px;
+	transition: all 0.5s;
+}
+.login-box .button a:hover{
+	background-color: #222;
+}
+.lock-img{
+	width: 100%;
+	margin-bottom: 2rem;
+	margin-top: 2rem;
+	text-align: center;
+	
+}
+.lock-img img{
+	height: 60px;
+	display: inline-block;
+	margin-top: 1.1rem;
+}
+.box-img{
+	height: 100px;
+	width: 100px;
+	border-radius: 50%;
+	background-color: #fff;
+	box-shadow: 0 0 10px 1px rgba(0,0,0,0.2);
+	line-height: 100px;
+	display: inline-block;
+}
 
+.pulse	 {
+  
+  animation: pulse 2s infinite;
+}
+
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(123, 184, 212,0.4);
+  }
+  70% {
+      -webkit-box-shadow: 0 0 0 10px rgba(123, 184, 212,0);
+  }
+  100% {
+      -webkit-box-shadow: 0 0 0 0 rgba(123, 184, 212,0);
+  }
+}
+@keyframes pulse {
+  0% {
+    -moz-box-shadow: 0 0 0 0 rgba(123, 184, 212,0.4);
+    box-shadow: 0 0 0 0 rgba(123, 184, 212,0.4);
+  }
+  70% {
+      -moz-box-shadow: 0 0 0 10px rgba(123, 184, 212,0);
+      box-shadow: 0 0 0 10px rgba(123, 184, 212,0);
+  }
+  100% {
+      -moz-box-shadow: 0 0 0 0 rgba(123, 184, 212,0);
+      box-shadow: 0 0 0 0 rgba(123, 184, 212,0);
+  }
+}
+
+@media screen and (max-width:767px){
+	.login-box{
+		width: 95%;
+		margin: 1rem 0;
+	}
+	.login-box .info{
+	width: 100%;
+	padding-right: 20px;
+		padding-bottom: 2rem;
+	}
+
+	.login-box .button{
+		width: 100%;
+	}	
+}
 .header-fixed{
 	position: fixed;
 	overflow: hidden;
@@ -179,7 +325,8 @@ a:hover {
 }
 .gallary-img-div:hover > img{
 	transform: scale(1.3);
-	opacity: 0.1;
+	opacity: 0.3;
+	
 }
 .gallary-icon-view-2{
 	left: 0% !important;

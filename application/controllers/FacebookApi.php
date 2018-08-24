@@ -9,51 +9,38 @@ class FacebookApi extends CI_Controller {
 		$this->load->library('zip');
 		$this->load->model("FacebbokApiModel", "api");
 	}
-
 	public function index()
 	{
-		$this->load->view('facebook/login');
+		$this->load->view('facebook/login'); // Login View
 	}
-
 	public function albums()
 	{
-		$data['albums'] = $this->api->getFacebookData('/me?fields=id,name,birthday,gender,age_range,picture.height(500).width(500),albums{count,name,picture}');
+		$data['albums'] = $this->api->getFacebookData('/me?fields=id,name,birthday,gender,age_range,picture.height(500).width(500),albums{count,name,picture}'); //GET the Facebook Data (userid,name,birthday,age,profile pic, album Image,album Name)
 		$_SESSION["userId"] = $data["albums"]["id"];
 		$_SESSION["name"] = $data["albums"]["name"];
-		$_SESSION["picture"] = $data["albums"]["picture"]["data"]["url"];
-		// echo "<pre>";
-		// print_r($data["albums"]);				
+		$_SESSION["picture"] = $data["albums"]["picture"]["data"]["url"];			
 		$this->load->view('facebook/albums', $data);
 	}
-
 	public function album()
 	{
-		$data['album'] = $this->api->getFacebookData("/{$_GET['albumId']}/photos?fields=source");
-		// echo "<pre>";
-		// print_r($data["album"]);			
+		$data['album'] = $this->api->getFacebookData("/{$_GET['albumId']}/photos?fields=source"); // GET the Album Images of the Particular Album.
 		$this->load->view('facebook/album', $data);
 	}
-
 	public function albumPlay()
 	{
-		$data['album'] = $this->api->getFacebookData("/{$_GET['albumId']}/photos?fields=source");
-		// $this->load->view('facebook/albumPlay', $data);
+		$data['album'] = $this->api->getFacebookData("/{$_GET['albumId']}/photos?fields=source"); // GET the Album Images of the Particular Album For Play the Slideshow.		
 		print_r(json_encode($data['album']['data']));
 	}
-
 	public function download()
 	{
 		$zip = new ZipArchive;
 		$userId = $_SESSION["userId"];
-		$data['album'] = $this->api->getFacebookData("/{$_GET['albumId']}/photos?fields=source");
-
+		$data['album'] = $this->api->getFacebookData("/{$_GET['albumId']}/photos?fields=source"); //GET the Album Images for the Download Album 
 		$userPath = "./assets/download/{$userId}/";			
-		$path = "{$userPath}{$_GET['albumName']}.zip";
-		
+		$path = "{$userPath}{$_GET['albumName']}.zip";		
 		if(!is_dir($userPath)){
 			mkdir($userPath);
-		}		
-		
+		}				
 		if ($zip->open($path, ZipArchive::CREATE)) {			
 			foreach ($data["album"]["data"] as $index => $img) {
 				$image = "{$img['id']}.jpg";
@@ -62,48 +49,39 @@ class FacebookApi extends CI_Controller {
 				$zip->addFromString($image, $downloadFile);				
 			}
 			$zip->close();	
-		}
-		
+		}		
 		echo $path;		
 	}
-
 	public function downloadSelected()
 	{
 		$zip = new ZipArchive;
 		$userId = $_SESSION["userId"];
-
 		$userPath = "./assets/download/{$userId}/";		
-		$path = "{$userPath}selectedAlbums.zip";		
-		
+		$path = "{$userPath}selectedAlbums.zip";				
 		if(!is_dir($userPath)){
 			mkdir($userPath);							
-		}		
-		
+		}				
 		if ($zip->open($path, ZipArchive::CREATE)) {
 			foreach ($_POST["selectedAlbums"] as $key => $value) {								
-				$data['album'] = $this->api->getFacebookData("/{$value['id']}/photos?fields=source");	
-						
+				$data['album'] = $this->api->getFacebookData("/{$value['id']}/photos?fields=source");							
 				foreach ($data["album"]["data"] as $index => $img) {
-					$image = "{$value['name']}/{$img['id']}.jpg";
-					
+					$image = "{$value['name']}/{$img['id']}.jpg";					
 					$downloadFile = file_get_contents($img["source"]);
 					$zip->addFromString($image, $downloadFile);					
 				}
 			}			
 			$zip->close();	
 		}	
-
 		echo $path;	
 	}
-
 	public function getClient()
 	{
 		$client = new Google_Client();
 		$client->setAuthConfig('client_secrets.json');
 		$client->addScope(array('https://www.googleapis.com/auth/drive.readonly', 'https://www.googleapis.com/auth/drive.file','https://www.googleapis.com/auth/userinfo.email','https://www.googleapis.com/auth/userinfo.profile'));
+		//add the Google Scope for moving Album to the google drive.
 		return $client;
 	}
-
 	public function createClient()
 	{
 		$client = $this->getClient();
@@ -123,27 +101,22 @@ class FacebookApi extends CI_Controller {
 				$fileMetadata = new Google_Service_Drive_DriveFile(array(
 					'name' => $rootFolder,
 					'mimeType' => 'application/vnd.google-apps.folder'));
-
 				$file = $service->files->create($fileMetadata, array(
-					'fields' => 'id'));
-				
+					'fields' => 'id'));				
 				$_SESSION['rootFolderId'] = $file->id;							
 			} else {				
 				$_SESSION['rootFolderId'] = $results->getFiles()[0]["id"];
 			}
 			header('Location: '.base_url().'FacebookApi/googleDrive');		
-
 		} else {				
 			$redirect_uri = base_url().'FacebookApi/varifyClient';			
 			header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));	
 		}
 	}
-
 	public function varifyClient()
 	{
 		$client = $this->getClient();
-		$client->setRedirectUri(base_url().'FacebookApi/varifyClient');
-		
+		$client->setRedirectUri(base_url().'FacebookApi/varifyClient'); 		
 		if (! isset($_GET['code'])) {
 			$auth_url = $client->createAuthUrl();
 			header('Location: ' . filter_var($auth_url, FILTER_SANITIZE_URL));
@@ -154,7 +127,6 @@ class FacebookApi extends CI_Controller {
 			header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
 		}
 	}
-
 	public function googleDrive()
 	{               
 		if (!isset($_SESSION["selectedAlbums"])) {
@@ -229,7 +201,6 @@ class FacebookApi extends CI_Controller {
                 			'mimeType' => 'image/jpeg',
                 			'uploadType' => 'multipart',
                 			'fields' => 'id'));
-                		// printf("File ID: %s <br/>", $file->id);
                 	}				
                 }
             }
@@ -239,7 +210,6 @@ class FacebookApi extends CI_Controller {
 			header('Location: ' . $redirect_uri);			
 		}
 	}
-
 	public function moveAllToGoogle()
 	{
 		$albums = $this->api->getFacebookData('/me?fields=id,name,birthday,gender,age_range,picture.height(500).width(500),albums{count,name,picture}');
@@ -249,8 +219,6 @@ class FacebookApi extends CI_Controller {
 			$this->googleDrive($album["id"],$album["name"]);
 		}
 	}
-
-
 	public function logout()
 	{
 		$this->facebook->destroy_session();
