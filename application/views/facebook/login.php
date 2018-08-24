@@ -33,7 +33,7 @@
                         
                     <?php } ?>
                     <div class="loginBtn marginTop" >
-                        <a href="http://myfoodstore.in/policies" target="_blank">
+                        <a href="https://rtcampkaran.myfoodstore.in/policy.html" target="_blank">
                                 Privacy Policy
                             </a>
                             </div>
