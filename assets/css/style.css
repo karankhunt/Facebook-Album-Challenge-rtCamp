@@ -32,12 +32,13 @@ a:active,
 a:hover {
   outline: 0;
 }
+
 .header-fixed{
 	position: fixed;
 	overflow: hidden;
 	z-index: 99;
 	width: 100%;
-	margin-bottom: 200px;
+	/*margin-bottom: 200px;*/
 }
 .header{
 	width: 100%;
@@ -48,7 +49,7 @@ a:hover {
 	width: 100%;
 	background-color: #555;
 	padding: 10px;
-	margin-bottom: 2rem;
+	/*margin-bottom: 2rem;*/
 }
 .container {
 	position: relative;
@@ -103,7 +104,7 @@ a:hover {
 .gallary-section{
 	width: 100%;
 	position: relative;
-	top:12vh;
+	top:15vh;
 }
 .gallary-row{
 	display: -webkit-box;
@@ -155,9 +156,9 @@ a:hover {
 	top:45%;
 	height: 35px;
 	width: 35px;
-	background-color: rgba(31, 32, 33,0.5);
+	background-color: #fff;
 	text-align: center;
-	line-height: 44px;
+	line-height: 40px;
 	border-radius: 3px;
 	transition: all 0.5s;
 	cursor: pointer;
@@ -165,13 +166,13 @@ a:hover {
 }
 .gallary-icon-view > a
 {
-	color: #fff;
+	color: #333;
 	text-decoration: none;
 }
 .gallary-icon-view > i
 {
 	font-size: 20px;
-	color:#fff;
+	color:#333;
 }
 .gallary-icon-view:hover{
 	background-color: rgba(0, 110, 245,1);
@@ -221,7 +222,7 @@ a:hover {
 	position: fixed;
 	display: none;
 	/*opacity: 1;*/
-	/*z-index: 999;*/
+	z-index: 999;
 }
 .zip-download{
 	background-color: #fff;
@@ -289,6 +290,10 @@ a:hover {
 }
 .closebtn{
 	padding: 10px;
+}
+.closebtn font
+{
+	font-size: 20px;
 }
 .subslider{
 	background: #fff;

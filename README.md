@@ -1,5 +1,4 @@
-# Facebook-Album-Challenge-rtCamp
- In that My website you can Show your Album Image of Your Facebook Profile. First of You can Authenticate Facebook Login and then After You can show Your Facebook Album Image on the Webpage and You can also see the Photos in the Slider.
+In that My website you can Show your Album Image of Your Facebook Profile. First of You can Authenticate Facebook Login and then After You can show Your Facebook Album Image on the Webpage and You can also see the Photos in the Slider.
 
 Part 1:
 

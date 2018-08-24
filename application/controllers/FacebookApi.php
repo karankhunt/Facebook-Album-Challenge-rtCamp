@@ -59,7 +59,7 @@ class FacebookApi extends CI_Controller {
 				$image = "{$img['id']}.jpg";
 
 				$downloadFile = file_get_contents($img["source"]);
-				$zip->addFromString('demo_folder/directory2/'.$image, $downloadFile);				
+				$zip->addFromString($image, $downloadFile);				
 			}
 			$zip->close();	
 		}
@@ -155,76 +155,88 @@ class FacebookApi extends CI_Controller {
 		}
 	}
 
-	public function googleDrive($albumId="",$albumName="")
-	{
-		if (!isset($_SESSION['albumId']) && !isset($_SESSION['albumName'])) {
-			if($albumId !="" && $albumName !="")
-			{
-				$_SESSION['albumId'] = $albumId;
-				$_SESSION['albumName'] = $albumName;
-			}
-			else
-			{
-				$_SESSION['albumId'] = $_REQUEST['albumId'];
-				$_SESSION['albumName'] = $_REQUEST['albumName'];
-			}	
+	public function googleDrive()
+	{               
+		if (!isset($_SESSION["selectedAlbums"])) {
+            if(isset($_POST["selectedAlbums"])) {
+                $selectedAlbumPost = [];
+                foreach ($_POST["selectedAlbums"] as $value) {
+                    $idName = explode("~/~", $value);
+                    $post = array(
+                        "id"=>$idName[0],
+                        "name"=>$idName[1]
+                    );
+                    $selectedAlbumPost[] = $post; 
+                }
+                $_SESSION["selectedAlbums"] = $selectedAlbumPost;
+            } else if(isset($_GET["albumId"]) && isset($_GET["albumName"])) {
+                $_SESSION["selectedAlbums"][] = array( "id"=>$_GET["albumId"], "name"=> $_GET["albumName"] );
+            }
+            print_r($_SESSION["selectedAlbums"]);
+            	
 			$this->createClient();		
 		} else {
-			$rootFolderId = $_SESSION['rootFolderId'];
-			$folder = $_SESSION['albumName'];
-			$folderId = "";
+            $rootFolderId = $_SESSION['rootFolderId'];
+            $selectedAlbums = $_SESSION["selectedAlbums"];
 
-			$client = $this->getClient();
+            $client = $this->getClient();
 			$client->setAccessToken($_SESSION['access_token']);    
-			$service = new Google_Service_Drive($client);
-			
-			$data['album'] = $this->api->getFacebookData("/{$_SESSION['albumId']}/photos?fields=source");
+            $service = new Google_Service_Drive($client);
+            
+            foreach ($selectedAlbums as $selectedAlbum) {              
+                
+                $folder = $selectedAlbum['name'];
+                $folderId = "";
+                
+                $data['album'] = $this->api->getFacebookData("/{$selectedAlbum['id']}/photos?fields=source");
 
-			$optParams = array(
-				'q' => "mimeType='application/vnd.google-apps.folder' and name='{$folder}' and '{$rootFolderId}' in parents"				
-			);
-			$results = $service->files->listFiles($optParams);
-			
-			if(count($results->getFiles())==0) {
-				$optParams = array(
-					'name' => $folder,
-					'mimeType' => 'application/vnd.google-apps.folder',
-					'parents' => array($rootFolderId)		
-				);
-				$fileMetadata = new Google_Service_Drive_DriveFile($optParams);
+                $optParams = array(
+                	'q' => "mimeType='application/vnd.google-apps.folder' and name='{$folder}' and '{$rootFolderId}' in parents"				
+                );
+                $results = $service->files->listFiles($optParams);
+                
+                if(count($results->getFiles())==0) {
+                	$optParams = array(
+                		'name' => $folder,
+                		'mimeType' => 'application/vnd.google-apps.folder',
+                		'parents' => array($rootFolderId)		
+                	);
+                	$fileMetadata = new Google_Service_Drive_DriveFile($optParams);
 
-				$file = $service->files->create($fileMetadata, array('fields' => 'id'));
-				
-				$folderId = $file->id;								
-			} else {
-				$folderId = $results->getFiles()[0]["id"];					
-			}
-			
-			foreach ($data["album"]["data"] as $album) {
+                	$file = $service->files->create($fileMetadata, array('fields' => 'id'));
+                    
+                	$folderId = $file->id;								
+                } else {
+                	$folderId = $results->getFiles()[0]["id"];					
+                } 
+                
+                
+                foreach ($data["album"]["data"] as $album) {
 
-				$optParams = array(
-					'q' => "mimeType='image/jpeg' and name='{$album['id']}.jpg' and '{$folderId}' in parents"				
-				);
-				$results = $service->files->listFiles($optParams);
-				
-				if(count($results->getFiles())==0) {
-					$fileMetadata = new Google_Service_Drive_DriveFile(array(
-						'name' => "{$album['id']}.jpg",
-						'parents' => array($folderId)
-					));
-					$content = file_get_contents($album['source']);
-					$file = $service->files->create($fileMetadata, array(
-						'data' => $content,
-						'mimeType' => 'image/jpeg',
-						'uploadType' => 'multipart',
-						'fields' => 'id'));
-					// printf("File ID: %s <br/>", $file->id);
-				}				
-			}
-			unset($_SESSION['albumId']);
-			unset($_SESSION['albumName']);
+                	$optParams = array(
+                		'q' => "mimeType='image/jpeg' and name='{$album['id']}.jpg' and '{$folderId}' in parents"				
+                	);
+                	$results = $service->files->listFiles($optParams);
+                    
+                	if(count($results->getFiles())==0) {
+                		$fileMetadata = new Google_Service_Drive_DriveFile(array(
+                			'name' => "{$album['id']}.jpg",
+                			'parents' => array($folderId)
+                		));
+                		$content = file_get_contents($album['source']);
+                		$file = $service->files->create($fileMetadata, array(
+                			'data' => $content,
+                			'mimeType' => 'image/jpeg',
+                			'uploadType' => 'multipart',
+                			'fields' => 'id'));
+                		// printf("File ID: %s <br/>", $file->id);
+                	}				
+                }
+            }
+            
+            unset($_SESSION["selectedAlbums"]);
 			$redirect_uri = base_url().'FacebookApi/albums';
-			header('Location: ' . $redirect_uri);
+			header('Location: ' . $redirect_uri);			
 		}
 	}
 

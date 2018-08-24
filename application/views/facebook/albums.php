@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-
+    <title>Facebook Album Challege - rtCamp </title>
+    <link rel="icon" href="<?php echo base_url('assets/images/rtcamp.png') ?>" sizes="192x192" />
     <!-- <link href="<?php echo base_url('assets/css/myStyle.css') ?>" rel = "stylesheet" type = "text/css"  /> -->
     <link href="<?php echo base_url('assets/css/style.css') ?>" rel = "stylesheet" type = "text/css"  />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+    <form id="albums" action="/facebookApi/googleDrive" method="post">
+
+
     <div class="header-fixed">
         <header class="header">
             <div class="container">
@@ -25,28 +28,28 @@
                 </div>
             </div>
         </header>
-        <header class="menu" style="margin-bottom: 100px;">
+        <header class="menu">
             <div class="container">
                 <div class="menu-list">
                     <ul>
                         <li>
-                            <a href="javascript:;" title="Download Selected Albums" class="downloadSelectedAlbum">
+                            <a href="javascript:;" title="Download Selected Albums" class="downloadSelectedAlbum" onclick="downloadSelectedAlbums();">
                                 <i class="fa fa-download"></i> Selected Download
                             </a>
                         </li>
                         <li>
-                            <a href="javascript:;" title="Download All Albums" class="downloadAllAlbum">
+                            <a href="javascript:;" title="Download All Albums" class="downloadAllAlbum" onclick="allAlbumDownload();">
                                 <i class="fa fa-download"></i> All Download
                             </a>
                         </li>
                         <li>
-                            <a  href="javascript:;" title="Backup Selected Albums">
+                            <a  href="javascript:;" title="Backup Selected Albums" onclick="$('#albums').submit();">
                                 <i class="fa fa-google"></i> Selected Move
                             </a>
                         </li>
                         <li>
-                            <a href="javascript:;" title="Backup All Albums">
-                                <i class="fa fa-download"></i> All Move
+                            <a href="javascript:;" class="driveAllAlbum" title="Backup All Albums" onclick="moveAllAlbumtoDrive();">
+                                <i class="fa fa-download "></i> All Move
                             </a>
                         </li>
                     </ul>
@@ -72,7 +75,7 @@
                             <img src='<?php print_r($album["picture"]["data"]["url"]); ?>' alt="gallary img">
                             <div class="gallary-img-name">
                                 <label>
-                                    <input type="checkbox" name="selectedAlbums[]" value="<?php echo $album['id']; ?>" data-album-name="<?php echo $album["name"] ?>" > 
+                                    <input type="checkbox" name="selectedAlbums[]" value="<?php echo $album['id'].'~/~'.$album['name']; ?>" > 
                                     <i class="fa fa-square-o" aria-hidden="true" style="font-size:20px;vertical-align: middle;"></i>
                                 <?php print_r($album["name"].' ('.$album["count"].')'); ?>
                                 </label>
@@ -80,16 +83,22 @@
                             <div class="gallary-icon-view">
                                 <a href="<?php echo base_url('FacebookApi/googleDrive?albumId='.$album['id'].'&albumName='.$album['name'])?>">                              
                                     <i class="fa fa-google" title="Move to Google Drive"></i>    
-                                </a>
-                                
+                                </a>                                                                
                             </div>
+
+
                             <div class="gallary-icon-view gallary-icon-view-2">
                                 <a href="<?php echo base_url('FacebookApi/album?albumId='.$album['id'].'&albumName='.$album['name'])?>"><i class="fa fa-file-image-o" title="Show Album Images"></i></a>
                             </div>
                             <div class="gallary-icon-view gallary-icon-view-3" onclick="openslider('<?php echo $album['id'] ?>','<?php echo $album['name'] ?>');">
                                 <i class="fa fa-play" title="Album SlideShow"></i>
                             </div>
-                            <div class="gallary-icon-view gallary-icon-view-4">
+                            <?php
+                            $albumname = $album['name'];
+                            $userid = $_SESSION["userId"];
+                            $albumid = $album['id'];
+                            ?>
+                            <div class="gallary-icon-view gallary-icon-view-4" onclick="albumDownload('<?php echo $albumid; ?>','<?php echo $albumname ?>','<?php echo $userid ?>');">
 
                                 <i class="fa fa-download downloadAlbum"  data-url="<?php echo 'albumId='.$album['id'].'&albumName='.$album["name"]; ?>" title="Download this Album" ></i>
                                 
@@ -104,7 +113,7 @@
 
 <div class="slider" id="slider">
     
-    <div class="closebtn">
+    <div class="closebtn" align="right">
         <font style="color:#fff;" onclick="closeslider();"><i class="fa fa-close"></i></font>
     </div>
 
@@ -120,7 +129,7 @@
 
 <div class="zip-link" id="zip-link">
     <div class="zip-download">
-        <div align="right">
+        <div align="right" >
             <i class="fa fa-close" onclick="closeDownload();"></i>
         </div>
         <div>
@@ -130,15 +139,19 @@
         <br>
         <div class="download-link" >
               <div class="progress-bar">
-                  <div class="fill-up" id="fill-up">
+                  <div class="fill-up" id="fill-up" >
                       
                   </div>
+              </div>
+
+              <div id="download-button" style="margin-top: 50px;">
+                  <a href='' onclick='closeDownload();' style="display: none;">Download</a>
               </div>
         </div>
         
     </div>
 </div>
-
+</form>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
