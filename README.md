@@ -39,14 +39,14 @@ Scripting Language : JQuery AJAX, JavaScrip
 
 Library Used :
 
-    Facebook PHP SDK
+    Facebook PHP SDK 
     Google Drive API
 
 How to use :
 
-    => First Sign in to the https://developers.facebook.com/
+=> First Sign in to the https://developers.facebook.com/
 
-    => Create an App
+=> Create an App
         From the Menu Select Apps 
         -> add a new App 
         -> Enter the Display Name and Email id -> create App ID
@@ -57,17 +57,17 @@ How to use :
         -> Choose Category
         -> Add Platform
 
-    => By Default Facebook give Only Name,Email,Gender,Profile Pic Data to the User.
+=> By Default Facebook give Only Name,Email,Gender,Profile Pic Data to the User.
 
-    => if you want to all photos permission of users then you need to approve your facebook app first.
+=> if you want to all photos permission of users then you need to approve your facebook app first.
 
-    => Download my App from Github and unzip.
+=> Download my App from Github and unzip.
 
-    => Put this Code into Your Server and if You want to run this App into Localhost then put this in root directory 
+=> Put this Code into Your Server and if You want to run this App into Localhost then put this in root directory 
         => Wamp -> www 
         => xampp -> htdocs
 
-    => Go to application/config/facebook.php and config the below value to your value.
+=> Go to application/config/facebook.php and config the below value to your value.
         => put your app id, app secret key, login url, logout url
 
-    => Run Your Project (^.^).
+=> Run Your Project (^.^).
