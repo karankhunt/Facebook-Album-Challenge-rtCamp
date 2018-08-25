@@ -23,3 +23,51 @@ A 'Move' Link is display on Each Album thumbnail and when the User click that li
 Using the checkbox user can select multiple Album and click the 'Move to Selected Album' then all the Selected Album move to the Google drive of the User.
 
 'Move All' link is Top of the Page. It can Move all the Album to the Google Drive.
+
+Importance :
+
+A clear responsive web application which was work on Any devices Like Desktop, Mobile, Tablet.
+Used the custom Design for better Enhancement without using any CSS Framework.
+Create the Custom Progress Bar to Display while the Zip is Creating on Server.
+
+
+Platforms : PHP 
+
+Framework : Codeignitor
+
+Scripting Language : JQuery AJAX, JavaScrip
+
+Library Used :
+
+    Facebook PHP SDK
+    Google Drive API
+
+How to use :
+
+    => First Sign in to the https://developers.facebook.com/
+
+    => Create an App
+        From the Menu Select Apps 
+        -> add a new App 
+        -> Enter the Display Name and Email id -> create App ID
+        -> Go to the Settings -> Basic 
+        -> Enter App Domains
+        -> Enter Privacy Policy Url
+        -> Enter App icon
+        -> Choose Category
+        -> Add Platform
+
+    => By Default Facebook give Only Name,Email,Gender,Profile Pic Data to the User.
+
+    => if you want to all photos permission of users then you need to approve your facebook app first.
+
+    => Download my App from Github and unzip.
+
+    => Put this Code into Your Server and if You want to run this App into Localhost then put this in root directory 
+        => Wamp -> www 
+        => xampp -> htdocs
+
+    => Go to application/config/facebook.php and config the below value to your value.
+        => put your app id, app secret key, login url, logout url
+
+    => Run Your Project (^.^).
