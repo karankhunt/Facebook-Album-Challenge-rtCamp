@@ -35,7 +35,7 @@ Platforms : PHP
 
 Framework : Codeignitor
 
-Scripting Language : JQuery AJAX, JavaScrip
+Scripting Language : JQuery AJAX, JavaScript
 
 Library Used :
 
