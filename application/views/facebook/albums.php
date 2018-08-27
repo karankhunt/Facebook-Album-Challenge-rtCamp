@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Facebook Album Challege - rtCamp </title>
-    <link rel="icon" href="<?php echo base_url('assets/images/rtcamp.png') ?>" sizes="192x192" />
-    
+    <link rel="icon" href="<?php echo base_url('assets/images/rtcamp.png') ?>" sizes="192x192" />    
     <link href="<?php echo base_url('assets/css/style.css') ?>" rel = "stylesheet" type = "text/css"  />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -68,8 +67,10 @@
 <section class="gallary-section">
     <div class="container">
         <div class="gallary-row">
-            <?php foreach($albums["albums"]["data"] as $album) { ?> 
-                <?php if($album["count"] != 0) { ?>  
+            <?php foreach ($albums["albums"]["data"] as $album) { 
+                ?> 
+                <?php if ($album["count"] != 0) {
+                    ?>  
                     <div class="gallary-col">
                         <div class="gallary-img-div">
                             <img src='<?php print_r($album["picture"]["data"]["url"]); ?>' alt="gallary img">
@@ -157,7 +158,7 @@
     crossorigin="anonymous"></script>
 
     <script>
-        var baseUrl = "<?= base_url('FacebookApi') ?>";   
+        var baseUrl = "<php echo base_url('FacebookApi') ?>";   
         var user_Id = "<?php echo $_SESSION['userId']; ?>";    
     </script>
     <script src="<?php echo base_url('assets/js/myScript.js') ?>" ></script>    
