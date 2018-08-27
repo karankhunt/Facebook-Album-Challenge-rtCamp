@@ -55,6 +55,7 @@ function albumDownload(albumId,albumName, userId) {
     }); 
 }
 function openslider(id,name) {    
+    GoInFullscreen($("#slider").get(0));
     document.getElementById("slider").style.display = "block";  //Visible the Slider
     $("body").css({"overflow":"hidden"});
     var dataUrl = baseUrl+"/albumPlay?albumId="+id;    
@@ -74,9 +75,31 @@ function openslider(id,name) {
         }
     });   
 }
+/* Get into full screen */
+function GoInFullscreen(element) {
+    if(element.requestFullscreen)
+        element.requestFullscreen();
+    else if(element.mozRequestFullScreen)
+        element.mozRequestFullScreen();
+    else if(element.webkitRequestFullscreen)
+        element.webkitRequestFullscreen();
+    else if(element.msRequestFullscreen)
+        element.msRequestFullscreen();
+}
+function GoOutFullscreen() {
+    if(document.exitFullscreen)
+        document.exitFullscreen();
+    else if(document.mozCancelFullScreen)
+        document.mozCancelFullScreen();
+    else if(document.webkitExitFullscreen)
+        document.webkitExitFullscreen();
+    else if(document.msExitFullscreen)
+        document.msExitFullscreen();
+}
 function closeslider() {
     document.getElementById("slider").style.display = "none";   
     $("body").css({"overflow":"auto"});
+    GoOutFullscreen();
 }
 var playSide;
 var playFlag = true;   
