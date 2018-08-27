@@ -54,7 +54,7 @@ function albumDownload(albumId,albumName, userId) {
         }
     }); 
 }
-function openslider(id,name) {
+function openslider(id,name) {    
     document.getElementById("slider").style.display = "block";  //Visible the Slider
     $("body").css({"overflow":"hidden"});
     var dataUrl = baseUrl+"/albumPlay?albumId="+id;    
@@ -72,22 +72,8 @@ function openslider(id,name) {
             document.getElementById("sider").style.width = (total+5)+"vw";
             // fill the Slider with Album Image
         }
-    });
- 
-    // GoInFullscreen($("#slider").get(0));
-    
+    });   
 }
-function GoInFullscreen(element) {
-    if(element.requestFullscreen)
-        element.requestFullscreen();
-    else if(element.mozRequestFullScreen)
-        element.mozRequestFullScreen();
-    else if(element.webkitRequestFullscreen)
-        element.webkitRequestFullscreen();
-    else if(element.msRequestFullscreen)
-        element.msRequestFullscreen();
-}
-
 function closeslider() {
     document.getElementById("slider").style.display = "none";   
     $("body").css({"overflow":"auto"});
