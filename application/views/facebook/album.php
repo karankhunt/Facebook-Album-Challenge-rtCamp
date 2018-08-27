@@ -45,7 +45,7 @@
     <div class="container">
         <div class="gallary-row">
             <?php foreach ($album["data"] as $img) { 
-                ?>
+				?>
 
                     <div class="gallary-col">
                         <div class="gallary-img-div">
@@ -55,7 +55,7 @@
                         </div>
                     </div>                  
                 <?php
-            } ?>
+			} ?>
             
         </div>
     </div>
