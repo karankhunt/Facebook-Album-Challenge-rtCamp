@@ -37,16 +37,16 @@ a checkbox is displayed in each album for multiple file moving. Using the checkb
 
 ## Platforms : PHP 
 
-###Framework : Codeignitor
+### Framework : Codeignitor
 
-###Scripting Language : JQuery AJAX, JavaScript
+### Scripting Language : JQuery AJAX, JavaScript
 
-###Library Used :
+### Library Used :
 
-####Facebook PHP SDK - https://github.com/darkwhispering/facebook-sdk-codeigniter   
-####Google Drive API
+#### Facebook PHP SDK - https://github.com/darkwhispering/facebook-sdk-codeigniter   
+#### Google Drive API
 
-##How to use :
+## How to use :
 
 => First Sign in to the https://developers.facebook.com/
 
