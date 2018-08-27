@@ -73,7 +73,21 @@ function openslider(id,name) {
             // fill the Slider with Album Image
         }
     });
+ 
+    // GoInFullscreen($("#slider").get(0));
+    
 }
+function GoInFullscreen(element) {
+    if(element.requestFullscreen)
+        element.requestFullscreen();
+    else if(element.mozRequestFullScreen)
+        element.mozRequestFullScreen();
+    else if(element.webkitRequestFullscreen)
+        element.webkitRequestFullscreen();
+    else if(element.msRequestFullscreen)
+        element.msRequestFullscreen();
+}
+
 function closeslider() {
     document.getElementById("slider").style.display = "none";   
     $("body").css({"overflow":"auto"});

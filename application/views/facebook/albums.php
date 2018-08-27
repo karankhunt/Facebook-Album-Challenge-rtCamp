@@ -158,7 +158,7 @@
     crossorigin="anonymous"></script>
 
     <script>
-        var baseUrl = "<php echo base_url('FacebookApi') ?>";   
+        var baseUrl = "<?php echo base_url('FacebookApi') ?>";   
         var user_Id = "<?php echo $_SESSION['userId']; ?>";    
     </script>
     <script src="<?php echo base_url('assets/js/myScript.js') ?>" ></script>    
