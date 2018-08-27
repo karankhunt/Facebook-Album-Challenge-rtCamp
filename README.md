@@ -39,8 +39,8 @@ Scripting Language : JQuery AJAX, JavaScript
 
 Library Used :
 
-    Facebook PHP SDK - https://github.com/darkwhispering/facebook-sdk-codeigniter   
-    Google Drive API
+Facebook PHP SDK - https://github.com/darkwhispering/facebook-sdk-codeigniter   
+Google Drive API
 
 How to use :
 
