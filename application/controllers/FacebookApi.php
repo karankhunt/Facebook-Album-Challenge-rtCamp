@@ -86,7 +86,7 @@ class FacebookApi extends CI_Controller {
 		$data['album'] = $this->api->getFacebookData("/{$_GET['albumId']}/photos?fields=source"); //GET the Album Images for the Download Album 
 		$userPath = "./assets/download/{$userId}/";
 		$path = "{$userPath}{$_GET['albumName']}.zip";
-		if (!is_dir($userPath)) {
+		if ( ! is_dir($userPath)) {
 			mkdir($userPath);
 		}
 		if ($zip->open($path, ZipArchive::CREATE)) {
@@ -110,7 +110,7 @@ class FacebookApi extends CI_Controller {
 		$userId = $_SESSION["userId"];
 		$userPath = "./assets/download/{$userId}/";
 		$path = "{$userPath}selectedAlbums.zip";
-		if (!is_dir($userPath)) {
+		if ( ! is_dir($userPath)) {
 			mkdir($userPath);
 		}
 		if ($zip->open($path, ZipArchive::CREATE)) {
@@ -135,7 +135,7 @@ class FacebookApi extends CI_Controller {
 	{
 		$client = new Google_Client();
 		$client->setAuthConfig('client_secrets.json');
-		$client->addScope(array('https://www.googleapis.com/auth/drive.readonly', 'https://www.googleapis.com/auth/drive.file','https://www.googleapis.com/auth/userinfo.email','https://www.googleapis.com/auth/userinfo.profile'));
+		$client->addScope(array('https://www.googleapis.com/auth/drive.readonly', 'https://www.googleapis.com/auth/drive.file', 'https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'));
 		//add the Google Scope for moving Album to the google drive.
 		return $client;
 	}
@@ -155,7 +155,7 @@ class FacebookApi extends CI_Controller {
 			$optParams = array(
 			   'q' => "mimeType='application/vnd.google-apps.folder' and name='{$rootFolder}'");
 			$results = $service->files->listFiles($optParams);
-			if (count($results->getFiles())==0) {
+			if (count($results->getFiles()) == 0) {
 				$fileMetadata = new Google_Service_Drive_DriveFile(array('name' => $rootFolder, 'mimeType' => 'application/vnd.google-apps.folder'));
 				$file = $service->files->create($fileMetadata, array('fields' => 'id'));
 				$_SESSION['rootFolderId'] = $file->id;
@@ -165,7 +165,7 @@ class FacebookApi extends CI_Controller {
 			header('Location: '.base_url().'FacebookApi/googleDrive');
 		} else {
 			$redirect_uri = base_url().'FacebookApi/varifyClient';
-			header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
+			header('Location: '.filter_var($redirect_uri, FILTER_SANITIZE_URL));
 		}
 	}
 	/**
@@ -177,14 +177,14 @@ class FacebookApi extends CI_Controller {
 	{
 		$client = $this->getClient();
 		$client->setRedirectUri(base_url().'FacebookApi/varifyClient');
-		if (! isset($_GET['code'])) {
+		if ( ! isset($_GET['code'])) {
 			$auth_url = $client->createAuthUrl();
-			header('Location: ' . filter_var($auth_url, FILTER_SANITIZE_URL));
+			header('Location: '.filter_var($auth_url, FILTER_SANITIZE_URL));
 		} else {
 			$client->authenticate($_GET['code']);
 			$_SESSION['access_token'] = $client->getAccessToken();
 			$redirect_uri = base_url().'FacebookApi/createClient';
-			header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
+			header('Location: '.filter_var($redirect_uri, FILTER_SANITIZE_URL));
 		}
 	}
 	/**
@@ -194,7 +194,7 @@ class FacebookApi extends CI_Controller {
 	 */
 	public function googleDrive()
 	{               
-		if (!isset($_SESSION["selectedAlbums"])) {
+		if ( ! isset($_SESSION["selectedAlbums"])) {
 			if (isset($_POST["selectedAlbums"])) {
 				$selectedAlbumPost = [];
 				foreach ($_POST["selectedAlbums"] as $value) {
@@ -207,7 +207,7 @@ class FacebookApi extends CI_Controller {
 				}
 				$_SESSION["selectedAlbums"] = $selectedAlbumPost;
 			} else if (isset($_GET["albumId"]) && isset($_GET["albumName"])) {
-				$_SESSION["selectedAlbums"][] = array( "id"=>$_GET["albumId"], "name"=> $_GET["albumName"] );
+				$_SESSION["selectedAlbums"][] = array("id"=>$_GET["albumId"], "name"=> $_GET["albumName"]);
 			}
 			print_r($_SESSION["selectedAlbums"]);
 			$this->createClient();
@@ -231,7 +231,7 @@ class FacebookApi extends CI_Controller {
 				);
 				$results = $service->files->listFiles($optParams);
                 
-				if (count($results->getFiles())==0) {
+				if (count($results->getFiles()) == 0) {
 					$optParams = array(
 						'name' => $folder,
 						'mimeType' => 'application/vnd.google-apps.folder',
@@ -254,7 +254,7 @@ class FacebookApi extends CI_Controller {
 					);
 					$results = $service->files->listFiles($optParams);
                     
-					if (count($results->getFiles())==0) {
+					if (count($results->getFiles()) == 0) {
 						$fileMetadata = new Google_Service_Drive_DriveFile(array('name' => "{$album['id']}.jpg", 'parents' => array($folderId)));
 						$content = file_get_contents($album['source']);
 						$file = $service->files->create($fileMetadata, array('data' => $content, 'mimeType' => 'image/jpeg', 'uploadType' => 'multipart', 'fields' => 'id'));
@@ -263,7 +263,7 @@ class FacebookApi extends CI_Controller {
 			}            
 			unset($_SESSION["selectedAlbums"]);
 			$redirect_uri = base_url().'FacebookApi/albums';
-			header('Location: ' . $redirect_uri);
+			header('Location: '.$redirect_uri);
 		}
 	}
 	/**

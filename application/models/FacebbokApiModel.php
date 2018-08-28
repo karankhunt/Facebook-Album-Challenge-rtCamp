@@ -11,13 +11,13 @@ class FacebbokApiModel extends CI_Model {
 				$datas = "";
 			}
             
-			if(isset($datas["paging"]["next"])){
+			if (isset($datas["paging"]["next"])) {
 				$nextUrl = $datas["paging"]["next"]; 
-				while($nextUrl != ""){
+				while ($nextUrl != "") {
 					$nextData = json_decode(file_get_contents($nextUrl), true);
 					$datas["data"] = array_merge($datas["data"], $nextData["data"]);
                     
-					if(isset($nextData["paging"]["next"])){
+					if (isset($nextData["paging"]["next"])) {
 						$nextUrl = $nextData["paging"]["next"]; 
 					} else {
 						$nextUrl = "";
