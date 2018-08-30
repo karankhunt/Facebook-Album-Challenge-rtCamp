@@ -20,7 +20,7 @@
  * @link     https://github.com/darkwhispering/facebook-sdk-codeigniter
  */
 if ($this->facebook->is_authenticated()) {
-    header('location: https://rtcampkaran.myfoodstore.in/facebookApi/albums');
+	header('location: https://rtcampkaran.myfoodstore.in/facebookApi/albums');
 }
 ?>
 <!DOCTYPE html>
@@ -52,7 +52,7 @@ if ($this->facebook->is_authenticated()) {
                 </ul>                
             </div>
             <div class="button">
-                <?php if (!$this->facebook->is_authenticated()) { ?>
+                <?php if ( ! $this->facebook->is_authenticated()) { ?>
                 <a href="<?php echo $this->facebook->login_url(); ?>"><i class="fa fa-facebook" aria-hidden="true"></i> Login With Facebook </a>
                 <?php } ?>
                 <a href="https://rtcampkaran.myfoodstore.in/policy.html" target="_blank">Privacy Policy</a>

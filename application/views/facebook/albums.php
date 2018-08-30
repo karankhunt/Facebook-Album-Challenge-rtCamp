@@ -68,9 +68,9 @@
     <div class="container">
         <div class="gallary-row">
             <?php foreach ($albums["albums"]["data"] as $album) { 
-                ?> 
+				?> 
                 <?php if ($album["count"] != 0) {
-                    ?>  
+					?>  
                     <div class="gallary-col">
                         <div class="gallary-img-div">
                             <img src='<?php print_r($album["picture"]["data"]["url"]); ?>' alt="gallary img">
@@ -95,10 +95,10 @@
                                 <i class="fa fa-play" title="Album SlideShow"></i>
                             </div>
                             <?php
-                            $albumname = $album['name'];
-                            $userid = $_SESSION["userId"];
-                            $albumid = $album['id'];
-                            ?>
+							$albumname = $album['name'];
+							$userid = $_SESSION["userId"];
+							$albumid = $album['id'];
+							?>
                             <div class="gallary-icon-view gallary-icon-view-4" onclick="albumDownload('<?php echo $albumid; ?>','<?php echo $albumname ?>','<?php echo $userid ?>');">
 
                                 <i class="fa fa-download downloadAlbum"  data-url="<?php echo 'albumId='.$album['id'].'&albumName='.$album["name"]; ?>" title="Download this Album" ></i>
