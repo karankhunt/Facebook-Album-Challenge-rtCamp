@@ -250,7 +250,7 @@ a:hover {
 .gallary-section{
 	width: 100%;
 	position: relative;
-	top:15vh;
+	top:16vh;
 }
 .gallary-row{
 	display: -webkit-box;
@@ -325,7 +325,7 @@ a:hover {
 }
 .gallary-img-div:hover > img{
 	transform: scale(1.3);
-	opacity: 0.3;
+	
 	
 }
 .gallary-icon-view-2{
@@ -371,6 +371,33 @@ a:hover {
 	/*opacity: 1;*/
 	z-index: 999;
 }
+
+.img-preview-slide{
+	background-color: rgba(0,0,0,0.8);
+	top:0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	display: none;
+	/*opacity: 1;*/
+	z-index: 99999999999;	
+}
+.img-preview-box{
+	
+	padding: 10px;
+	margin-top: 1%;
+
+	width: 100vw;
+	height: 100vh;
+	text-align: center;	
+	border-radius: 10px;
+	box-shadow: 3px 3px 10px #333;
+}
+.img-preview-div{
+	max-width:100vw;
+	max-height:90vh;
+}
 .zip-download{
 	background-color: #fff;
 	padding: 10px;
@@ -414,7 +441,7 @@ a:hover {
 
 /*slider start*/
 .slider{
-	background: #333;
+	background: rgba(0,0,0,0.7);
 	/*padding: 10px;*/
 	top:0;
 	left: 0;
@@ -431,16 +458,24 @@ a:hover {
 	color:#fff;
 	position: absolute;
 	top:50%;
-	left: 50%;
+	left: 48%;
 	margin-top: -35px;
 	z-index: 999999;
+	cursor:pointer;
 }
 .closebtn{
-	padding: 10px;
+	padding: 2px;
+	margin-top:10px;
+	margin-right:10px;
 }
 .closebtn font
 {
-	font-size: 20px;
+	font-size: 25px;
+	padding:5px 9px;
+	color:#333;
+	background-color:#fff;
+	border-radius:100%;
+	cursor:pointer;
 }
 .subslider{
 	background: #fff;
@@ -460,13 +495,13 @@ a:hover {
 }
 .left-side{
 	border-width: 30px 40px 30px 0;
-	border-color: transparent #333 transparent transparent;
+	border-color: transparent #fff transparent transparent;
 	left: 0;
 	margin-left: 60px;
 }
 .right-side{
 	border-width: 30px 0 30px 40px;
-	border-color: transparent transparent transparent #333;
+	border-color: transparent transparent transparent #fff;
 	right: 0;
 	margin-right: 60px;
 }
@@ -565,6 +600,11 @@ a:hover {
 	.gallary-img-div > img{
 		height: 292px !important;
 	}
+	.gallary-section{
+		width: 100%;
+		position: relative;
+		top:17vh;
+	}
 }
 @media (min-width:767px) and (max-width:1024px){
 	.gallary-col{
@@ -575,7 +615,16 @@ a:hover {
 	}
 	.gallary-img-div > img{
 		height: 218px;
+	}
+	.gallary-section{
+		width: 100%;
+		position: relative;
+		top:17vh;
 	}	
+	.img-preview-div{
+		max-width:80vw;
+		max-height:90vh;
+	}
 }
 @media (min-width:480px) and (max-width:767px){
 	.gallary-col{
@@ -598,6 +647,15 @@ a:hover {
 		display: inline;
 		margin-right: 20px;
 	}
+	.gallary-section{
+		width: 100%;
+		position: relative;
+		top:17vh;
+	}
+	.img-preview-div{
+		max-width:80vw;
+		max-height:90vh;
+	}
 }
 @media screen and (max-width:480px){
 	.gallary-col{
@@ -619,6 +677,30 @@ a:hover {
 		margin:0;
 		display: inline;
 		margin-right: 10px;
+	}
+	.menu-list ul{
+		padding: 0;
+		margin: 0;
+	}
+	.menu-list ul li{
+		padding: 0;
+		margin:0;
+		display: inline;
+		margin-right: 1px;
+	}
+	.menu{
+		width: 100%;
+		background-color: #555;
+		padding: 10px 0px;
+	}
+	.gallary-section{
+		width: 100%;
+		position: relative;
+		top:19vh;
+	}
+	.img-preview-div{
+		max-width:80vw;
+		max-height:90vh;
 	}
 }
 

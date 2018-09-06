@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Facebook Album Challege - rtCamp </title>
-    <link rel="icon" href="<?php echo base_url('assets/images/rtcamp.png') ?>" sizes="192x192" />    
+    <link rel="icon" href="<?php echo base_url('assets/images/rtcamp.png') ?>" sizes="192x192" />
+    <!-- <link href="<?php echo base_url('assets/css/myStyle.css') ?>" rel = "stylesheet" type = "text/css"  /> -->
     <link href="<?php echo base_url('assets/css/style.css') ?>" rel = "stylesheet" type = "text/css"  />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -67,13 +68,11 @@
 <section class="gallary-section">
     <div class="container">
         <div class="gallary-row">
-            <?php foreach ($albums["albums"]["data"] as $album) { 
-				?> 
-                <?php if ($album["count"] != 0) {
-					?>  
+            <?php foreach($albums["albums"]["data"] as $album) { ?> 
+                <?php if($album["count"] != 0) { ?>  
                     <div class="gallary-col">
                         <div class="gallary-img-div">
-                            <img src='<?php print_r($album["picture"]["data"]["url"]); ?>' alt="gallary img">
+                            <img src='<?php print_r($album["cover_photo"]["images"][0]["source"]); ?>' alt="gallary img">
                             <div class="gallary-img-name">
                                 <label>
                                     <input type="checkbox" name="selectedAlbums[]" value="<?php echo $album['id'].'~/~'.$album['name']; ?>" > 
@@ -95,10 +94,10 @@
                                 <i class="fa fa-play" title="Album SlideShow"></i>
                             </div>
                             <?php
-							$albumname = $album['name'];
-							$userid = $_SESSION["userId"];
-							$albumid = $album['id'];
-							?>
+                            $albumname = $album['name'];
+                            $userid = $_SESSION["userId"];
+                            $albumid = $album['id'];
+                            ?>
                             <div class="gallary-icon-view gallary-icon-view-4" onclick="albumDownload('<?php echo $albumid; ?>','<?php echo $albumname ?>','<?php echo $userid ?>');">
 
                                 <i class="fa fa-download downloadAlbum"  data-url="<?php echo 'albumId='.$album['id'].'&albumName='.$album["name"]; ?>" title="Download this Album" ></i>
@@ -112,19 +111,20 @@
     </div>
 </section>
 
-<div class="slider" id="slider">
-    
-    <div class="closebtn" align="right">
-        <font style="color:#fff;" onclick="closeslider();"><i class="fa fa-close"></i></font>
-    </div>
+<div class="slider" id="slider">    
+    <div class="inner-slider">   
+        <div class="closebtn" align="right">
+            <font onclick="closeslider();"><i class="fa fa-close"></i></font>
+        </div>
 
-    <div class="subslider" id="">
-            <div class="left-side arrow" onclick="prevSide();"></div>
-            <div class="playbtn" ><i class="fa fa-play" onclick="playSider(event);"></i></div>
-            <div class="sider" id="sider" > 
-                
-            </div>
-            <div class="right-side arrow" onclick="nextSide();"></div>
+        
+                <div class="left-side arrow" onclick="prevSide();"></div>
+                <div class="playbtn" ><i class="fa fa-play" onclick="playSider(event);"></i></div>
+                <div class="sider" id="sider" > 
+                    
+                </div>
+                <div class="right-side arrow" onclick="nextSide();"></div>
+        
     </div>
 </div>
 

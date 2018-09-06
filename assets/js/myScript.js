@@ -54,9 +54,9 @@ function albumDownload(albumId,albumName, userId) {
         }
     }); 
 }
-function openslider(id,name) {    
-    GoInFullscreen($("#slider").get(0));
-    document.getElementById("slider").style.display = "block";  //Visible the Slider
+function openslider(id,name) {
+    
+        $("#slider").css("display","block");  //Visible the Slider
     $("body").css({"overflow":"hidden"});
     var dataUrl = baseUrl+"/albumPlay?albumId="+id;    
     $.ajax({
@@ -67,39 +67,19 @@ function openslider(id,name) {
             data = JSON.parse(data);
             for(i=0; i<data.length; i++)
             {
-                $(".sider").append('<div class="side" ><img src="'+data[i]["source"]+'"></div>')
+                $(".sider").append('<div class="side"><img src="'+data[i]["source"]+'"></div>')
             }
             total = (document.getElementById("sider").childElementCount*100);
             document.getElementById("sider").style.width = (total+5)+"vw";
             // fill the Slider with Album Image
         }
-    });   
-}
-/* Get into full screen */
-function GoInFullscreen(element) {
-    if(element.requestFullscreen)
-        element.requestFullscreen();
-    else if(element.mozRequestFullScreen)
-        element.mozRequestFullScreen();
-    else if(element.webkitRequestFullscreen)
-        element.webkitRequestFullscreen();
-    else if(element.msRequestFullscreen)
-        element.msRequestFullscreen();
-}
-function GoOutFullscreen() {
-    if(document.exitFullscreen)
-        document.exitFullscreen();
-    else if(document.mozCancelFullScreen)
-        document.mozCancelFullScreen();
-    else if(document.webkitExitFullscreen)
-        document.webkitExitFullscreen();
-    else if(document.msExitFullscreen)
-        document.msExitFullscreen();
+    });
 }
 function closeslider() {
-    document.getElementById("slider").style.display = "none";   
+      
+    $("#slider").css("display","none");
     $("body").css({"overflow":"auto"});
-    GoOutFullscreen();
+    
 }
 var playSide;
 var playFlag = true;   
@@ -176,4 +156,14 @@ function allAlbumDownload() {
 function moveAllAlbumtoDrive() {
     $(".container .gallary-img-name > label > input[type='checkbox']").prop("checked", true); // Checked All Checkbox For Move to Google Drive
     $('#albums').submit();  // Form submitted for moving to Google Drive
+}
+function displayPreview(image) {
+	$("#img-preview").html("");
+	$("body").css({"overflow":"hidden"});
+	$("#img-preview-slide").css("display","block");
+	$("#img-preview").append('<img src="'+image+'" class="img-preview-div" style="width:auto;height:auto;"/>');	
+}
+function closePreview() {
+  	$("#img-preview-slide").css("display","none");
+	$("body").css({"overflow":"auto"});
 }
