@@ -44,7 +44,7 @@ a checkbox is displayed in each album for multiple file moving. Using the checkb
 ### Library Used :
 
 #### Facebook PHP SDK - https://github.com/darkwhispering/facebook-sdk-codeigniter   
-#### Google Drive API
+#### Google Drive API - https://developers.google.com/drive/api/v3/quickstart/php
 
 ## How to use :
 
