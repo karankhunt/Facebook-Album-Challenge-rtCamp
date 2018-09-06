@@ -58,7 +58,7 @@
     <section class="gallary-section">
     <div class="container">
         <div class="gallary-row">
-            <?php foreach($album["photos"]["data"] as $img) { ?>
+            <?php foreach ($album["photos"]["data"] as $img) { ?>
 
                     <div class="gallary-col" onclick="displayPreview('<?php print_r($img["images"][0]["source"]); ?>');">
                         <div class="gallary-img-div">

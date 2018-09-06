@@ -46,7 +46,7 @@ class FacebookApi extends CI_Controller {
 		$userPath = "./assets/download/{$userId}/";			
 		$path = "{$userPath}{$_GET['albumName']}.zip";
 		
-		if(!is_dir($userPath)){
+		if ( ! is_dir($userPath)) {
 			mkdir($userPath);
 		}		
 		
@@ -71,7 +71,7 @@ class FacebookApi extends CI_Controller {
 		$userPath = "./assets/download/{$userId}/";		
 		$path = "{$userPath}selectedAlbums.zip";		
 		
-		if(!is_dir($userPath)){
+		if ( ! is_dir($userPath)) {
 			mkdir($userPath);							
 		}		
 		
@@ -95,7 +95,7 @@ class FacebookApi extends CI_Controller {
 	{
 		$client = new Google_Client();
 		$client->setAuthConfig('client_secrets.json');
-		$client->addScope(array('https://www.googleapis.com/auth/drive.readonly', 'https://www.googleapis.com/auth/drive.file','https://www.googleapis.com/auth/userinfo.email','https://www.googleapis.com/auth/userinfo.profile'));
+		$client->addScope(array('https://www.googleapis.com/auth/drive.readonly', 'https://www.googleapis.com/auth/drive.file', 'https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'));
 		//add the Google Scope for moving Album to the google drive.
 		return $client;
 	}
@@ -114,7 +114,7 @@ class FacebookApi extends CI_Controller {
 			);
 			$results = $service->files->listFiles($optParams);
 			
-			if(count($results->getFiles())==0) {
+			if (count($results->getFiles()) == 0) {
 				$fileMetadata = new Google_Service_Drive_DriveFile(array(
 					'name' => $rootFolder,
 					'mimeType' => 'application/vnd.google-apps.folder'));
@@ -147,93 +147,93 @@ class FacebookApi extends CI_Controller {
 	public function googleDrive()
 	{               
 		if (!isset($_SESSION["selectedAlbums"])) {
-            if(isset($_POST["selectedAlbums"])) {
-                $selectedAlbumPost = [];
-                foreach ($_POST["selectedAlbums"] as $value) {
-                    $idName = explode("~/~", $value);
-                    $post = array(
-                        "id"=>$idName[0],
-                        "name"=>$idName[1]
-                    );
-                    $selectedAlbumPost[] = $post; 
-                }
-                $_SESSION["selectedAlbums"] = $selectedAlbumPost;
-            } else if(isset($_GET["albumId"]) && isset($_GET["albumName"])) {
-                $_SESSION["selectedAlbums"][] = array( "id"=>$_GET["albumId"], "name"=> $_GET["albumName"] );
-            }
-            print_r($_SESSION["selectedAlbums"]);
+			if(isset($_POST["selectedAlbums"])) {
+				$selectedAlbumPost = [];
+				foreach ($_POST["selectedAlbums"] as $value) {
+					$idName = explode("~/~", $value);
+					$post = array(
+						"id"=>$idName[0],
+						"name"=>$idName[1]
+					);
+					$selectedAlbumPost[] = $post; 
+				}
+				$_SESSION["selectedAlbums"] = $selectedAlbumPost;
+			} else if(isset($_GET["albumId"]) && isset($_GET["albumName"])) {
+				$_SESSION["selectedAlbums"][] = array( "id"=>$_GET["albumId"], "name"=> $_GET["albumName"] );
+			}
+			print_r($_SESSION["selectedAlbums"]);
             	
 			$this->createClient();		
 		} else {
-            $rootFolderId = $_SESSION['rootFolderId'];
-            $selectedAlbums = $_SESSION["selectedAlbums"];
+			$rootFolderId = $_SESSION['rootFolderId'];
+			$selectedAlbums = $_SESSION["selectedAlbums"];
 
-            $client = $this->getClient();
+			$client = $this->getClient();
 			$client->setAccessToken($_SESSION['access_token']);    
-            $service = new Google_Service_Drive($client);
+			$service = new Google_Service_Drive($client);
             
-            foreach ($selectedAlbums as $selectedAlbum) {              
+			foreach ($selectedAlbums as $selectedAlbum) {              
                 
-                $folder = $selectedAlbum['name'];
-                $folderId = "";
+				$folder = $selectedAlbum['name'];
+				$folderId = "";
                                 
-                $optParams = array(
-                	'q' => "mimeType='application/vnd.google-apps.folder' and name='{$folder}' and '{$rootFolderId}' in parents"				
-                );
-                $results = $service->files->listFiles($optParams);
+				$optParams = array(
+					'q' => "mimeType='application/vnd.google-apps.folder' and name='{$folder}' and '{$rootFolderId}' in parents"				
+				);
+				$results = $service->files->listFiles($optParams);
                 
-                if(count($results->getFiles())==0) {
-                	$optParams = array(
-                		'name' => $folder,
-                		'mimeType' => 'application/vnd.google-apps.folder',
-                		'parents' => array($rootFolderId)		
-                	);
-                	$fileMetadata = new Google_Service_Drive_DriveFile($optParams);
+				if(count($results->getFiles())==0) {
+					$optParams = array(
+						'name' => $folder,
+						'mimeType' => 'application/vnd.google-apps.folder',
+						'parents' => array($rootFolderId)		
+					);
+					$fileMetadata = new Google_Service_Drive_DriveFile($optParams);
 
-                	$file = $service->files->create($fileMetadata, array('fields' => 'id'));
+					$file = $service->files->create($fileMetadata, array('fields' => 'id'));
                     
-                	$folderId = $file->id;								
-                } else {
-                	$folderId = $results->getFiles()[0]["id"];					
-                } 
+					$folderId = $file->id;								
+				} else {
+					$folderId = $results->getFiles()[0]["id"];					
+				} 
 				
 				$data['album'] = $this->api->getFacebookData("/{$selectedAlbum['id']}?fields=photos{images{source}}");										
                 
-                foreach ($data["album"]["photos"]["data"] as $album) {
+				foreach ($data["album"]["photos"]["data"] as $album) {
 
-                	$optParams = array(
-                		'q' => "mimeType='image/jpeg' and name='{$album['id']}.jpg' and '{$folderId}' in parents"				
-                	);
-                	$results = $service->files->listFiles($optParams);
+					$optParams = array(
+						'q' => "mimeType='image/jpeg' and name='{$album['id']}.jpg' and '{$folderId}' in parents"				
+					);
+					$results = $service->files->listFiles($optParams);
                     
-                	if(count($results->getFiles())==0) {
-                		$fileMetadata = new Google_Service_Drive_DriveFile(array(
-                			'name' => "{$album['id']}.jpg",
-                			'parents' => array($folderId)
-                		));
-                		$content = file_get_contents($album["images"][0]["source"]);
-                		$file = $service->files->create($fileMetadata, array(
-                			'data' => $content,
-                			'mimeType' => 'image/jpeg',
-                			'uploadType' => 'multipart',
-                			'fields' => 'id'));
-                		// printf("File ID: %s <br/>", $file->id);
-                	}				
-                }
-            }
+					if(count($results->getFiles())==0) {
+						$fileMetadata = new Google_Service_Drive_DriveFile(array(
+							'name' => "{$album['id']}.jpg",
+							'parents' => array($folderId)
+						));
+						$content = file_get_contents($album["images"][0]["source"]);
+						$file = $service->files->create($fileMetadata, array(
+							'data' => $content,
+							'mimeType' => 'image/jpeg',
+							'uploadType' => 'multipart',
+							'fields' => 'id'));
+						// printf("File ID: %s <br/>", $file->id);
+					}				
+				}
+			}
             
-            unset($_SESSION["selectedAlbums"]);
+			unset($_SESSION["selectedAlbums"]);
 			$redirect_uri = base_url().'FacebookApi/albums';
-			header('Location: ' . $redirect_uri);			
+			header('Location: '.$redirect_uri);			
 		}
 	}
 	public function moveAllToGoogle()
 	{
 		$albums = $this->api->getFacebookData('/me?fields=id,name,birthday,gender,age_range,picture.height(500).width(500),albums{count,name,picture}');
-		foreach($albums["albums"]["data"] as $album)
+		foreach ($albums["albums"]["data"] as $album)
 		{
 			echo $album["id"].",".$album["name"]."<br>";
-			$this->googleDrive($album["id"],$album["name"]);
+			$this->googleDrive($album["id"], $album["name"]);
 		}
 	}
 	public function logout()
