@@ -46,6 +46,7 @@ a checkbox is displayed in each album for multiple file moving. Using the checkb
 #### Facebook PHP SDK - https://github.com/darkwhispering/facebook-sdk-codeigniter   
 #### Google Drive API - https://developers.google.com/drive/api/v3/quickstart/php
 
+#### Scrutinizer (Coding Standard) - https://scrutinizer-ci.com/g/karankhunt/Facebook-Album-Challenge-rtCamp/
 ## How to use :
 
 => First Sign in to the https://developers.facebook.com/
