@@ -11,6 +11,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+    <?php
+        if (isset($_SESSION['access_token'])) {
+            if (isset($_SESSION["selectedAlbums"])) {               
+                echo "<script> window.onload = function(e){ callDrive(); } </script>";
+            }
+        }
+    ?>
     <form id="albums" action="/facebookApi/googleDrive" method="post">
 
 
@@ -68,8 +75,8 @@
 <section class="gallary-section">
     <div class="container">
         <div class="gallary-row">
-            <?php foreach ($albums["albums"]["data"] as $album) { ?> 
-                <?php if ($album["count"] != 0) { ?>  
+            <?php foreach($albums["albums"]["data"] as $album) { ?> 
+                <?php if($album["count"] != 0) { ?>  
                     <div class="gallary-col">
                         <div class="gallary-img-div">
                             <img src='<?php print_r($album["cover_photo"]["images"][0]["source"]); ?>' alt="gallary img">
@@ -94,10 +101,10 @@
                                 <i class="fa fa-play" title="Album SlideShow"></i>
                             </div>
                             <?php
-							$albumname = $album['name'];
-							$userid = $_SESSION["userId"];
-							$albumid = $album['id'];
-							?>
+                            $albumname = $album['name'];
+                            $userid = $_SESSION["userId"];
+                            $albumid = $album['id'];
+                            ?>
                             <div class="gallary-icon-view gallary-icon-view-4" onclick="albumDownload('<?php echo $albumid; ?>','<?php echo $albumname ?>','<?php echo $userid ?>');">
 
                                 <i class="fa fa-download downloadAlbum"  data-url="<?php echo 'albumId='.$album['id'].'&albumName='.$album["name"]; ?>" title="Download this Album" ></i>
@@ -134,7 +141,7 @@
             <i class="fa fa-close" onclick="closeDownload();"></i>
         </div>
         <div>
-            <h2>Download Link</h2>
+            <h2 id="download-link">Download Link</h2>
         </div>
         <hr>
         <br>
@@ -148,8 +155,7 @@
               <div id="download-button" style="margin-top: 50px;">
                   <a href='' onclick='closeDownload();' style="display: none;">Download</a>
               </div>
-        </div>
-        
+        </div>       
     </div>
 </div>
 </form>

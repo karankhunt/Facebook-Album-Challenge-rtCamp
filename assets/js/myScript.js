@@ -13,6 +13,7 @@ $(document).ready(function() {
 });
 function downloadSelectedAlbums() {
 
+    $("#download-link").html("Download Link");
     progressBar();
     var dataUrl = baseUrl+"/downloadSelected"; //Download URL
     var selectedAlbums = [];
@@ -42,6 +43,7 @@ function downloadSelectedAlbums() {
 }
 function albumDownload(albumId,albumName, userId) {
     var dataUrl = baseUrl+"/download?albumId="+albumId+"&albumName="+albumName;    
+    $("#download-link").html("Download Link");
     progressBar(); // Start the ProgressBar
     $.ajax({
         url: dataUrl,
@@ -158,12 +160,29 @@ function moveAllAlbumtoDrive() {
     $('#albums').submit();  // Form submitted for moving to Google Drive
 }
 function displayPreview(image) {
-	$("#img-preview").html("");
-	$("body").css({"overflow":"hidden"});
-	$("#img-preview-slide").css("display","block");
-	$("#img-preview").append('<img src="'+image+'" class="img-preview-div" style="width:auto;height:auto;"/>');	
+    $("#img-preview").html("");
+    $("body").css({"overflow":"hidden"});
+    $("#img-preview-slide").css("display","block");
+    $("#img-preview").append('<img src="'+image+'" class="img-preview-div" style="width:auto;height:auto;"/>'); 
 }
 function closePreview() {
-  	$("#img-preview-slide").css("display","none");
-	$("body").css({"overflow":"auto"});
+    $("#img-preview-slide").css("display","none");
+    $("body").css({"overflow":"auto"});
+}
+
+function callDrive(){
+    $("#download-link").html("Move to Google Drive");
+    progressBar();
+    var dataUrl = baseUrl+"/googleDrive";   
+
+    $.ajax({
+        url: dataUrl,
+        type: "GET",
+        success: function(downloadUrl) {
+            clearInterval(progressBarProcess);
+            $("#fill-up").css("width","100%");
+            document.getElementById("zip-link").style.display = "none";
+
+        }
+    });  
 }
