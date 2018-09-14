@@ -1,24 +1,4 @@
 <?php
-/**
- * PHP version 7.1
- * Facebook PHP SDK for CodeIgniter 3
- *
- * Library wrapper for Facebook PHP SDK. Check user login status, publish to feed
- * and more with easy to use CodeIgniter syntax.
- *
- * This library requires the Facebook PHP SDK to be installed with Composer, and that CodeIgniter
- * config is set to autoload the vendor folder. More information in the CodeIgniter user guide at
- * http://www.codeigniter.com/userguide3/general/autoloader.html?highlight=composer
- *
- * It also requires CodeIgniter session library to be correctly configured.
- *
- * @category Libraries
- * @package  CodeIgniter
- * @author   Mattias Hedman <username@example.com>
- * @license  https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt MIT 
- * @version  CVS: <3.3.1>
- * @link     https://github.com/darkwhispering/facebook-sdk-codeigniter
- */
 if ($this->facebook->is_authenticated()) {
 	header('location: https://rtcampkaran.myfoodstore.in/facebookApi/albums');
 }

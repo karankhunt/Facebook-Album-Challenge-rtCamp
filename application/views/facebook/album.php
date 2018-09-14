@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-
-    <!-- <link href="<?php echo base_url('assets/css/myStyle.css') ?>" rel = "stylesheet" type = "text/css"  /> -->
+    <title>Facebook Album Challenge - rtCamp | Album</title>
+    <link rel="icon" href="<?php echo base_url('assets/images/rtcamp.png') ?>" sizes="192x192" />
     <link href="<?php echo base_url('assets/css/style.css') ?>" rel = "stylesheet" type = "text/css"  />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -19,7 +18,6 @@
             <div id="img-preview">
             
             </div>
-
         </div>
     </div>
 
@@ -45,43 +43,29 @@
                             <a href="https://rtcampkaran.myfoodstore.in/FacebookApi/albums/" title="Go Back" class="downloadSelectedAlbum" >
                                 <i class="fa fa-arrow-left"></i> Go Back
                             </a>
-                        </li>
-                        
+                        </li>                        
                     </ul>
                 </div>
             </div>
         </header>
         <div style="clear: both;"></div>    
-    </div>
-
-    
+    </div>    
     <section class="gallary-section">
     <div class="container">
         <div class="gallary-row">
             <?php foreach ($album["photos"]["data"] as $img) { ?>
-
                     <div class="gallary-col" onclick="displayPreview('<?php print_r($img["images"][0]["source"]); ?>');">
                         <div class="gallary-img-div">
-                            <img src='<?php print_r($img["images"][0]["source"]); ?>' alt="gallary img">
-                            
-                            
+                            <img src='<?php print_r($img["images"][0]["source"]); ?>' alt="gallary img">               
                         </div>
                     </div>                  
-                <?php } ?>
-            
+                <?php } ?>            
         </div>
     </div>
 </section>
-
-
-
-
-
-
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
-
     <script>
         var baseUrl = "<?= base_url('FacebookApi') ?>";       
     </script>

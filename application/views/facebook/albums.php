@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Facebook Album Challege - rtCamp </title>
+    <title>Facebook Album Challege - rtCamp | Albums</title>
     <link rel="icon" href="<?php echo base_url('assets/images/rtcamp.png') ?>" sizes="192x192" />
-    <!-- <link href="<?php echo base_url('assets/css/myStyle.css') ?>" rel = "stylesheet" type = "text/css"  /> -->
     <link href="<?php echo base_url('assets/css/style.css') ?>" rel = "stylesheet" type = "text/css"  />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -19,8 +18,6 @@
         }
     ?>
     <form id="albums" action="/facebookApi/googleDrive" method="post">
-
-
     <div class="header-fixed">
         <header class="header">
             <div class="container">
@@ -65,13 +62,7 @@
         </header>
         <div style="clear: both;"></div>    
     </div>
-
-
     <div style="clear: both;"></div>
-
-    
-    
-
 <section class="gallary-section">
     <div class="container">
         <div class="gallary-row">
@@ -92,8 +83,6 @@
                                     <i class="fa fa-google" title="Move to Google Drive"></i>    
                                 </a>                                                                
                             </div>
-
-
                             <div class="gallary-icon-view gallary-icon-view-2">
                                 <a href="<?php echo base_url('FacebookApi/album?albumId='.$album['id'].'&albumName='.$album['name'])?>"><i class="fa fa-file-image-o" title="Show Album Images"></i></a>
                             </div>
@@ -106,9 +95,7 @@
                             $albumid = $album['id'];
                             ?>
                             <div class="gallary-icon-view gallary-icon-view-4" onclick="albumDownload('<?php echo $albumid; ?>','<?php echo $albumname ?>','<?php echo $userid ?>');">
-
                                 <i class="fa fa-download downloadAlbum"  data-url="<?php echo 'albumId='.$album['id'].'&albumName='.$album["name"]; ?>" title="Download this Album" ></i>
-                                
                             </div>
                         </div>
                     </div>                  
@@ -117,14 +104,11 @@
         </div>
     </div>
 </section>
-
 <div class="slider" id="slider">    
     <div class="inner-slider">   
         <div class="closebtn" align="right">
             <font onclick="closeslider();"><i class="fa fa-close"></i></font>
-        </div>
-
-        
+        </div>        
                 <div class="left-side arrow" onclick="prevSide();"></div>
                 <div class="playbtn" ><i class="fa fa-play" onclick="playSider(event);"></i></div>
                 <div class="sider" id="sider" > 
@@ -134,7 +118,6 @@
         
     </div>
 </div>
-
 <div class="zip-link" id="zip-link">
     <div class="zip-download">
         <div align="right" >
@@ -151,7 +134,6 @@
                       
                   </div>
               </div>
-
               <div id="download-button" style="margin-top: 50px;">
                   <a href='' onclick='closeDownload();' style="display: none;">Download</a>
               </div>
@@ -162,7 +144,6 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
-
     <script>
         var baseUrl = "<?php echo base_url('FacebookApi') ?>";   
         var user_Id = "<?php echo $_SESSION['userId']; ?>";    
