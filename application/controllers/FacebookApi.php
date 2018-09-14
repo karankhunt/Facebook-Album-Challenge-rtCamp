@@ -13,22 +13,39 @@ class FacebookApi extends CI_Controller {
 	}
 	public function index()
 	{
-		$this->load->view('facebook/login'); // Login View
+		if ($this->facebook->is_authenticated()) {
+		    header('location: https://rtcampkaran.myfoodstore.in/facebookApi/albums');
+		}
+		else
+		{
+			$this->load->view('facebook/login'); // Login View
+		}
 	}
 	public function albums()
 	{
-		//$data['albums'] = $this->api->getFacebookData('/me?fields=id,name,birthday,gender,age_range,picture.height(500).width(500),albums{count,name,picture}'); //GET the Facebook Data (userid,name,birthday,age,profile pic, album Image,album Name)
-
-		$data['albums'] = $this->api->getFacebookData('me?fields=id,name,birthday,gender,age_range,picture.height(500).width(500),albums.fields(id,name,count,cover_photo{images{source}})');
-		$_SESSION["userId"] = $data["albums"]["id"];
-		$_SESSION["name"] = $data["albums"]["name"];
-		$_SESSION["picture"] = $data["albums"]["picture"]["data"]["url"];			
-		$this->load->view('facebook/albums', $data);
+		if ($this->facebook->is_authenticated()) {
+		    $data['albums'] = $this->api->getFacebookData('me?fields=id,name,birthday,gender,age_range,picture.height(500).width(500),albums.fields(id,name,count,cover_photo{images{source}})');
+			$_SESSION["userId"] = $data["albums"]["id"];
+			$_SESSION["name"] = $data["albums"]["name"];
+			$_SESSION["picture"] = $data["albums"]["picture"]["data"]["url"];			
+			$this->load->view('facebook/albums', $data);
+		}
+		else
+		{
+			$this->load->view('facebook/login'); // Login View
+		}
+		
 	}
 	public function album()
 	{
-		$data['album'] = $this->api->getFacebookData("/{$_GET['albumId']}?fields=photos{images{source}}"); // GET the Album Images of the Particular Album.
-		$this->load->view('facebook/album', $data);
+		if ($this->facebook->is_authenticated()) {
+		    $data['album'] = $this->api->getFacebookData("/{$_GET['albumId']}?fields=photos{images{source}}"); // GET the Album Images of the Particular Album.
+			$this->load->view('facebook/album', $data);
+		}
+		else
+		{
+			$this->load->view('facebook/login'); // Login View
+		}		
 	}
 	public function albumPlay()
 	{
